@@ -22,7 +22,13 @@ const Login = () => {
         }) 
         .then(res=>res.json())
         .then(data=>{
-            console.log(data);
+            if (data.success) {
+            localStorage.setItem('accessToken', data.accessToken); 
+            }
+            else{              
+            console.log('plz Registration! u are not our user');
+            }
+
         })
 
     }
