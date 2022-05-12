@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 const inputStyle = {
     width: '100%',
@@ -6,6 +7,7 @@ const inputStyle = {
     marginBottom: '10px'
 }
 const Login = () => {
+    const navigate = useNavigate();
     const handleLogin = event => {
         event.preventDefault();
         const email = event.target.email.value;
@@ -23,10 +25,12 @@ const Login = () => {
         .then(res=>res.json())
         .then(data=>{
             if (data.success) {
-            localStorage.setItem('accessToken', data.accessToken); 
+            localStorage.setItem('accessToken', data.accessToken);
+            navigate('/orders'); 
             }
             else{              
-            console.log('plz Registration! u are not our user');
+            alert('Invalid! Plz Registration! u are not our user');
+            navigate('/signup');
             }
 
         })
