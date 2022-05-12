@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-;
+import {useNavigate } from 'react-router-dom';
 
 const Orders = () => {
+    const navigate =  useNavigate();
     const [orders, setOrders] = useState([]);
     useEffect(()=>{
         //OPTION Async/axios/fetch | token sent to server
@@ -13,18 +14,22 @@ const Orders = () => {
             }
         })
         .then(res=>{
-            console.log(res);
+            // console.log(res);
+            if (res.status === 401 || res.status === 403) {
+                navigate('/login');
+                
+            }
            return res.json()
         })
         .then(data=>{
             console.log(data);
+            setOrders(data);
         })
-
     },[])
 
     return (
         <div>
-         <h1>This is Orders page</h1>
+         <h1>Your Orders item:  {orders.length}</h1>
         </div>
     );
 };
